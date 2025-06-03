@@ -73,25 +73,47 @@ When you want to forcefully reload, for example to reset the state of your app, 
 - **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
 - **iOS**: Press <kbd>R</kbd> in iOS Simulator.
 
-## Congratulations! :tada:
 
-You've successfully run and modified your React Native App. :partying_face:
+# Các folder chính
 
-### Now what?
+# README - Ứng dụng Chụp Ảnh React Native (AI Pose & Editor)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Ứng dụng React Native hỗ trợ chụp ảnh, gợi ý pose bằng AI và chỉnh sửa ảnh, theo cấu trúc MVC.
 
-# Troubleshooting
+## Cấu trúc Thư mục Chính
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+*   **`/android` & `/ios`**: Mã nguồn gốc cho từng nền tảng.
+*   **`/assets`**: Tài sản tĩnh (hình ảnh, font, **model AI trong `assets/models/`**).
+*   **`/src`**: Mã nguồn chính của ứng dụng.
+    *   **`/controllers` (C)**: Xử lý logic, điều phối giữa Model và View.
+        *   `CameraController.js`, `PoseController.js`, `EditorController.js`
+    *   **`/models` (M)**: Quản lý dữ liệu, trạng thái, logic AI.
+        *   `AIModel.js` (tải/chạy AI), `ImageState.js`, `PoseData.js`
+    *   **`/navigation`**: Thiết lập điều hướng màn hình (`AppNavigator.js`).
+    *   **`/services`**: Các dịch vụ hỗ trợ (xử lý ảnh, API).
+        *   `ImageProcessingService.js`, `AIService.js`
+    *   **`/views` (V)**: Giao diện người dùng.
+        *   `/screens`: Các màn hình ( `CameraScreen.js`, `EditorScreen.js`, `PoseSuggestionScreen.js`).
+        *   `/components`: UI component tái sử dụng (`PoseOverlay.js`, `EditingToolbar.js`).
+    *   `App.js`: Component gốc trong `src`, khởi tạo điều hướng.
+*   **`index.js`**: Điểm vào chính của ứng dụng React Native.
+*   **`package.json`**: Quản lý thư viện và scripts dự án.
+*   **`app.json`**: Cấu hình chung của ứng dụng.
 
-# Learn More
+## Mô hình MVC
 
-To learn more about React Native, take a look at the following resources:
+*   **View (Giao diện)**: Hiển thị dữ liệu, nhận tương tác người dùng.
+*   **Controller (Điều khiển)**: Nhận input từ View, gọi Model xử lý, cập nhật lại View.
+*   **Model (Dữ liệu & Logic)**: Lưu trữ trạng thái, xử lý nghiệp vụ (bao gồm tương tác với model AI).
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Chức năng chính (dự kiến)
+
+1.  **Chụp ảnh**: Sử dụng camera thiết bị.
+2.  **Gợi ý Pose (AI)**: Model AI phân tích khung hình, đề xuất các tư thế tạo dáng.
+3.  **Chỉnh sửa ảnh**: Các công cụ cơ bản (filter, crop, rotate, etc.).
+
+## Các tệp cấu hình quan trọng khác
+
+*   `.eslintrc.js`, `.prettierrc.js`: Linting và formatting code.
+*   `babel.config.js`: Cấu hình trình biên dịch JavaScript.
+*   `metro.config.js`: Cấu hình Metro bundler.
